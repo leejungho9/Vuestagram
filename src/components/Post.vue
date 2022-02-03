@@ -5,10 +5,10 @@
       <span class="profile-name">{{postDatas.name}}</span>
     </div>
     
-    <div class="post-body" :style="{ backgroundImage : `url(${postDatas.postImage})`}"></div>
+    <div class="post-body" :style="{ backgroundImage : `url(${postDatas.postImage})`}" @click="$store.commit('likes'+index)"></div>
 
     <div class="post-content">
-      <p>{{postDatas.likes}}</p>
+      <p>{{$store.state.likes[index]}}</p>
       <p><strong>{{postDatas.name}}</strong>  {{postDatas.content}}</p>
       <p class="date">{{postDatas.date}}</p>
     </div>
@@ -19,7 +19,9 @@
 export default {
     props : {
         postDatas : Object,
-    }
+        index : Number
+    },
+
 
 }
 </script>

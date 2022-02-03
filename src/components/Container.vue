@@ -1,11 +1,7 @@
 <template>
 
     <div v-if="step == 0">
-      <Post
-        v-for="(postDatas, i) in postData"
-        :key="i"
-        :postDatas="postData[i]"
-      />
+      <Post v-for="(postDatas, i) in postData" :key="i" :postDatas="postData[i]" :index="i" />
     </div>
 
     <!-- 필터선택페이지 -->
@@ -21,7 +17,7 @@
 
     <!-- 글작성페이지 -->
     <div v-if="step == 2">
-      <div class="upload-image" :style="{backgroundImage : `url(${uploadUrl})`}" ></div>
+      <div :class=" selectFilter +' upload-image'" :style="{backgroundImage : `url(${uploadUrl})`}" ></div>
       <div class="write">
         <textarea class="write-box" placeholder="write here!"></textarea>
       </div>
@@ -48,14 +44,16 @@ export default {
   },
   data() {
     return {
+      index : 0,
       postData,
       Filters : Filter,
+  
     };
   },
   methods: {
   
   },
-  
+
 };
 </script>
 

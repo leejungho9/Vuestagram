@@ -10,9 +10,10 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :postDatas="postDatas" :step ="step" :uploadUrl= "uploadUrl" :selectFilter="selectFilter"/>
+   <Container :postDatas="postDatas" :step ="step" :uploadUrl= "uploadUrl" :selectFilter="selectFilter"/>
 
-  <button class="moreBtn" @click="more(), clickBtn++">더보기</button>
+
+  <button class="moreBtn" @click="$store.dispatch('getData')" v-if="step == 0">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -35,9 +36,9 @@ export default {
     return {
       postDatas : postData,
       step : 0,
-      clickBtn : 0,
       uploadUrl : '',
       selectFilter : '',
+      counter : 0,
     }
   },
   mounted() {
@@ -49,7 +50,9 @@ export default {
   components: {
     Container,
   },
-
+  computed : {
+    
+  },
   methods : {
     more() {
       axios
@@ -80,7 +83,7 @@ export default {
     };
       this.postDatas.unshift(myPost)
       this.step = 0;
-    }
+    },
   }
 }
 </script>
