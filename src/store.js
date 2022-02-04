@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createStore } from "vuex";
 import postData from './assets/data.js'
+
 const store = createStore({
     state () {
         return {
@@ -10,7 +11,8 @@ const store = createStore({
             likecheck :[ false, false, false,],
             more : {},
             clickBtn : 0,
-            postDatas : postData,
+            postData : postData,
+            i : 0,
         }
     },
     mutations : {
@@ -48,18 +50,22 @@ const store = createStore({
              state.more = data
          },
          setPushData(state,data ){
-            state.postDatas.push(data);
+            state.postData.push(data);
+         },
+         setI(state) {
+             state.i++;
          }
 
     },
     actions : {
-        getData(context ) {
-            axios.get(`https://codingapple1.github.io/vue/more0.json`)
+        getData({ commit, state}) {
+            console.log(state.i)
+            axios.get(`https://codingapple1.github.io/vue/more${state.i}.json`)
             .then((result) => {
                 console.log(result.data);
-                context.commit('setMore', result.data);
-                context.commit('setPushData', result.data);
-
+                commit('setMore', result.data);
+                commit('setPushData', result.data);
+                commit('setI');
             })
         }
     }

@@ -23,21 +23,24 @@
       </div>
     </div>
 
+    <div v-if ="step ==3">
+      <MyPage :one= "1"/>
+    </div>
 
 </template>
 
 <script>
+import MyPage from './MyPage';
 import Post from "./Post.vue";
-import postData from "../assets/data.js";
 import FilterBox from "./FilterBox.vue";
 import Filter from '../assets/filter';
+import {mapState} from 'vuex';
 
 export default {
   components: {
-    Post,FilterBox
+    Post,FilterBox,MyPage
   },
   props: {
-    postDatas: Array,
     step:Number,
     uploadUrl: String,
     selectFilter : String
@@ -45,15 +48,13 @@ export default {
   data() {
     return {
       index : 0,
-      postData,
       Filters : Filter,
-  
+      postDatas : ''
     };
   },
-  methods: {
+  computed :  mapState(['postData'])
   
-  },
-
+ 
 };
 </script>
 

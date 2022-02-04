@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li @click="step--">Cancel</li>
+      <li v-if="step != 0" @click="step--">Cancel</li>
     </ul>
     <ul class="header-button-right">
       <li v-if="step == 1" @click="step++">Next</li>
@@ -9,9 +9,7 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
-
-   <Container :postDatas="postDatas" :step ="step" :uploadUrl= "uploadUrl" :selectFilter="selectFilter"/>
-
+   <Container  :step ="step" :uploadUrl= "uploadUrl" :selectFilter="selectFilter"/>
 
   <button class="moreBtn" @click="$store.dispatch('getData')" v-if="step == 0">더보기</button>
 
@@ -19,6 +17,7 @@
     <ul class="footer-button-plus">
       <input @change="upload"  type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
+      <span class="material-icons input-follower" @click = "step = 3">person_search</span>
     </ul>
   </div>
 </template>
@@ -38,7 +37,6 @@ export default {
       step : 0,
       uploadUrl : '',
       selectFilter : '',
-      counter : 0,
     }
   },
   mounted() {
@@ -50,9 +48,7 @@ export default {
   components: {
     Container,
   },
-  computed : {
-    
-  },
+
   methods : {
     more() {
       axios
@@ -83,7 +79,7 @@ export default {
     };
       this.postDatas.unshift(myPost)
       this.step = 0;
-    },
+    }
   }
 }
 </script>
@@ -153,7 +149,7 @@ ul {
   margin: auto;
   text-align: center;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 19px;
   padding-top: 12px;
 }
 .sample-box {
@@ -178,4 +174,11 @@ ul {
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
 }
+.input-follower{
+  position: absolute;
+  right: 20px;
+  color: #333;
+}
+
+
 </style>
